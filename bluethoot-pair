@@ -1,0 +1,19 @@
+#!/bin/bash 
+
+echo "enable bredr mode"
+sudo cp /etc/bluetooth/main.conf /etc/bluetooth/main.conf.bak
+sudo sed -e '/ControllerMode/ s/^#*/#/g' -i /etc/bluetooth/main.conf
+sudo bash -c 'echo "ControllerMode = bredr" >> /etc/bluetooth/main.conf'
+
+echo "Restarting bluetooth service"
+sudo service bluetooth restart
+
+
+echo "Click enter after paring headphones"
+read
+
+echo "Restoring old backup"
+sudo cp /etc/bluetooth/main.conf.bak /etc/bluetooth/main.conf
+
+echo "Restarting bluetooth service"
+sudo service bluetooth restart
